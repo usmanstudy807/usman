@@ -7,7 +7,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<!-- Apni website body ke baad, close body tag se pehle ye add karein -->
+    
+    <script>
+        // Login check - agar login nahi hai to login page par jayega
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+        
+        // User name show karein (agar aap header mein username dikhana chahte hain)
+        var currentUser = localStorage.getItem('currentUser');
+        
+        // Logout function
+        function logout() {
+            localStorage.setItem('loggedIn', 'false');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
+  
 <header>
   <div class="logo">MOHAMMAD USMAN</div>
 
