@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammad Usman - Computer Education</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">MOHAMMAD USMAN</div>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#courses">Courses</a>
+    <a href="#login">Student Login</a>
+  </nav>
+
+  <a href="register.html">
+    <button class="btn">Register</button>
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>MOHAMMAD USMAN</h1>
+    <p>Computer Teacher | Trainer | Mentor</p>
+  </div>
+
+  <img src="image/usman.jpg.jpeg" alt="Mohammad Usman">
+</section>
+
+<section class="courses" id="courses">
+  <h2>Our Popular Courses</h2>
+
+  <div class="grid">
+    <div class="card">
+      <img src="image/word.png">
+      <h3>MS Word</h3>
+      <button>View Course</button>
+    </div>
+
+    <div class="card">
+      <img src="image/excel.png">
+      <h3>MS Excel</h3>
+      <a href="excel"><button>View Course</button></a>
+    </div>
+
+    <div class="card">
+      <img src="image/powerpoint.png">
+      <h3>MS PowerPoint</h3>
+      <button>View Course</button>
+    </div>
+
+    <div class="card">
+      <img src="image/photoshop.png">
+      <h3>Photoshop</h3>
+      <button>View Course</button>
+    </div>
+  </div>
+</section>
+
+<section class="login-box" id="login">
+  <h2>Student Login</h2>
+
+  <form action="backend.php" method="POST">
+    <input type="text" name="username" placeholder="Username or Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <button class="btn" style="width:100%">Login</button>
+  </form>
+</section>
+
+<footer>
+  © 2026 Mohammad Usman | Computer Education
+</footer>
+
+</body>
+</html>
