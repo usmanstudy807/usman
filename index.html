@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Usman Website</title>
+    <title>Login - Mohammad Usman</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,7 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        
+
         body {
             min-height: 100vh;
             display: flex;
@@ -19,7 +19,7 @@
             align-items: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .container {
             background: white;
             padding: 40px;
@@ -27,30 +27,23 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             width: 350px;
         }
-        
+
         h2 {
             text-align: center;
-            color: #333;
             margin-bottom: 25px;
         }
-        
+
         .form-group {
             margin-bottom: 15px;
         }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        
+
         input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        
+
         button {
             width: 100%;
             padding: 12px;
@@ -61,158 +54,199 @@
             cursor: pointer;
             margin-top: 10px;
         }
-        
+
         .switch-link {
             text-align: center;
             margin-top: 15px;
         }
-        
+
         .switch-link a {
-            color: #667eea;
+            color: blue;
             text-decoration: none;
         }
-        
+
         .hidden {
             display: none;
         }
-        
+
         .error {
             color: red;
-            font-size: 14px;
-            margin-top: 10px;
             text-align: center;
+            margin-top: 10px;
         }
-        
+
         .success {
             color: green;
-            font-size: 14px;
-            margin-top: 10px;
             text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Login Section -->
-        <div id="loginSection">
-            <h2>🔐 Login</h2>
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="loginUsername" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p id="loginError" class="error"></p>
-            <p class="switch-link">
-                New user? <a href="#" onclick="showRegister()">Register here</a>
-            </p>
-        </div>
-        
-        <!-- Register Section -->
-        <div id="registerSection" class="hidden">
-            <h2>📝 Register</h2>
-            <form onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="regUsername" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="regEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="regPassword" required>
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="regConfirmPassword" required>
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            <p id="regError" class="error"></p>
-            <p id="regSuccess" class="success"></p>
-            <p class="switch-link">
-                Already registered? <a href="#" onclick="showLogin()">Login here</a>
-            </p>
-        </div>
+
+<div class="container">
+
+    <div id="loginSection">
+        <h2>🔐 Student Login</h2>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p style="text-align:center; margin-top:10px;">
+  <a href="#" onclick="resetPassword()">Forgot Password?</a>
+</p>
+
+        <p id="loginError" class="error"></p>
+
+        <p class="switch-link">
+            New student?
+            <a href="#" onclick="showRegister()">Register here</a>
+        </p>
     </div>
-    
-    <script>
-        // Check if already logged in
-        if (localStorage.getItem('loggedIn') === 'true') {
-            window.location.href = 'main.html';
-        }
-        
-        function showRegister() {
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('registerSection').classList.remove('hidden');
-        }
-        
-        function showLogin() {
-            document.getElementById('registerSection').classList.add('hidden');
-            document.getElementById('loginSection').classList.remove('hidden');
-        }
-        
-        function handleRegister(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('regUsername').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('regConfirmPassword').value;
-            
-            document.getElementById('regError').textContent = '';
-            document.getElementById('regSuccess').textContent = '';
-            
-            if (password !== confirmPassword) {
-                document.getElementById('regError').textContent = 'Passwords do not match!';
-                return;
-            }
-            
-            if (password.length < 6) {
-                document.getElementById('regError').textContent = 'Password must be 6+ characters!';
-                return;
-            }
-            
-            let users = JSON.parse(localStorage.getItem('users') || '[]');
-            
-            if (users.find(u => u.username === username)) {
-                document.getElementById('regError').textContent = 'Username already exists!';
-                return;
-            }
-            
-            users.push({ username, email, password });
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            document.getElementById('regError').textContent = '';
-            document.getElementById('regSuccess').textContent = 'Registered! Now login.';
-            
-            setTimeout(() => showLogin(), 2000);
-        }
-        
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            
-            let users = JSON.parse(localStorage.getItem('users') || '[]');
-            let user = users.find(u => u.username === username && u.password === password);
-            
-            if (user) {
-                localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('currentUser', username);
-                window.location.href = 'main.html';
-            } else {
-                document.getElementById('loginError').textContent = 'Invalid username or password!';
-            }
-        }
-    </script>
+
+
+    <div id="registerSection" class="hidden">
+        <h2>📝 Register</h2>
+
+        <form onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <input type="email" id="regEmail" placeholder="Email" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="regPassword" placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p id="regError" class="error"></p>
+        <p id="regSuccess" class="success"></p>
+
+        <p class="switch-link">
+            Already registered?
+            <a href="#" onclick="showLogin()">Login here</a>
+        </p>
+    </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyA5lkiDKt9lgSmKZM8m2ogYvakx2z1vol0",
+  authDomain: "usman-60738.firebaseapp.com",
+  projectId: "usman-60738",
+  storageBucket: "usman-60738.firebasestorage.app",
+  messagingSenderId: "668675134936",
+  appId: "1:668675134936:web:9e37861d957c3a35a5cead"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user)=>{
+    if(user){
+        window.location.href="main.html";
+    }
+});
+
+window.showRegister = function(){
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("registerSection").classList.remove("hidden");
+}
+
+window.showLogin = function(){
+    document.getElementById("registerSection").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+}
+
+window.handleRegister = async function(e){
+    e.preventDefault();
+
+    let email=document.getElementById("regEmail").value;
+    let pass=document.getElementById("regPassword").value;
+    let confirm=document.getElementById("regConfirmPassword").value;
+
+    if(pass!==confirm){
+        document.getElementById("regError").textContent="Passwords do not match";
+        return;
+    }
+
+    try{
+        await createUserWithEmailAndPassword(auth,email,pass);
+        const user = auth.currentUser;
+await sendEmailVerification(user);
+
+document.getElementById('regSuccess').textContent =
+'Registration successful! Verify your email first.';
+        document.getElementById("regSuccess").textContent="Registration successful!";
+        setTimeout(()=>{
+            window.location.href="main.html";
+        },1000);
+    }catch(error){
+        document.getElementById("regError").textContent=error.message;
+    }
+}
+
+window.handleLogin = async function(e){
+    e.preventDefault();
+
+    let email=document.getElementById("loginEmail").value;
+    let pass=document.getElementById("loginPassword").value;
+
+    try{
+        const userCredential =
+await signInWithEmailAndPassword(auth, email, password);
+
+if (userCredential.user.emailVerified) {
+   window.location.href = 'main.html';
+} else {
+   document.getElementById('loginError').textContent =
+   'Pehle apna email verify karo.';
+}
+    }catch(error){
+        document.getElementById("loginError").textContent="Wrong email or password";
+    }
+}
+window.resetPassword = async function() {
+   const email =
+   document.getElementById('loginEmail').value.trim();
+
+   if (!email) {
+      alert("Pehle email likho");
+      return;
+   }
+
+   try {
+      await sendPasswordResetEmail(auth, email);
+      alert("Password reset email bhej diya gaya.");
+   } catch(error) {
+      alert("Error: " + error.message);
+   }
+}
+</script>
+
 </body>
 </html>
