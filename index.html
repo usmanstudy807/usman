@@ -234,7 +234,7 @@ console.log(error);
 window.resetPassword = async function() {
    const email =
    document.getElementById('loginEmail').value.trim();
-
+    const password = document.getElementById('loginPassword').value;
    if (!email) {
       alert("Pehle email likho");
       return;
